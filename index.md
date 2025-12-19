@@ -1,7 +1,7 @@
 ---
 title: "自己紹介 / About"
 ---
-<img src="avatar.jpg" alt="avatar" width="220" style="image-rendering: pixelated;">
+<img src="avatar.jpg" alt="avatar" width="330" style="image-rendering: pixelated;">
 
 # JIANG CHENYING（蒋晨莹）
 
