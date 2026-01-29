@@ -10,7 +10,41 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+SC:wght@400;600;800&family=Noto+Sans+JP:wght@400;600;800&display=swap" rel="stylesheet">
 
-  <style>
+  <style>/* ===== Make left column stretch to match right card height ===== */
+.grid{ align-items: stretch; }           /* 让两列同高对齐 */
+.leftCol{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  height:100%;
+  min-height:100%;
+}
+
+/* 让年贺状卡片自动填充剩余空间（关键） */
+.leftCol #newyear{ flex: 1 1 auto; }
+.leftCol #newyear .cardBody{
+  display:flex;
+  height:100%;
+  align-items:center;
+}
+
+/* 年贺状内容更饱满、更大一些 */
+#newyear .nyLink{
+  width:100%;
+  min-height:160px;          /* 让卡片整体“更高” */
+  padding:16px;
+}
+
+/* 放大像素财神（更显眼） */
+#newyear .nySprite{
+  --px: 7px;                 /* 原来 6px，这里加粗像素颗粒 */
+  border-radius:10px;
+}
+
+/* 标题文字略放大一点（可选，但更好看） */
+#newyear .nyMain{ font-size: 15px; }
+#newyear .nySubText{ font-size: 12px; }
+
     :root{
       /* keep your current color direction */
       --bg1:#fff4db;   /* light orange */
@@ -508,7 +542,8 @@
 
     <div class="grid">
       <!-- LEFT: About + Projects + NewYear -->
-      <section style="display:flex; flex-direction:column; gap:14px;">
+      <section class="leftCol">
+
         <!-- About -->
         <section class="card">
           <div class="cardHead">
