@@ -12,7 +12,7 @@
 
   <style>
     :root{
-      /* Pixel theme */
+      /* keep your current color direction */
       --bg1:#fff4db;   /* light orange */
       --bg2:#e9fff1;   /* light green */
       --ink:#132016;
@@ -26,7 +26,7 @@
       --green:#33c46a;
 
       --shadow: 0 14px 40px rgba(0,0,0,.14);
-      --radius:10px; /* boxy */
+      --radius:10px;
     }
 
     *{ box-sizing:border-box; }
@@ -35,8 +35,6 @@
       margin:0;
       font-family:"Noto Sans SC","Noto Sans JP",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--ink);
-
-      /* fresh orange+green background with pixel-ish grid */
       background:
         radial-gradient(900px 600px at 12% 15%, rgba(255,138,42,.25), transparent 60%),
         radial-gradient(900px 650px at 88% 22%, rgba(51,196,106,.22), transparent 60%),
@@ -68,7 +66,7 @@
       z-index:1;
     }
 
-    /* Top bar */
+    /* ===== Top bar ===== */
     .top{
       display:flex;
       align-items:center;
@@ -79,31 +77,40 @@
     .brand{
       display:flex;
       align-items:center;
-      gap:14px;
+      gap:16px;
       min-width:260px;
     }
+
+    /* bigger avatar + pixel shadow */
     .avatar{
-      width:56px;height:56px;
-      border-radius:12px;
+      width:72px;
+      height:72px;
+      border-radius:14px;
       object-fit:cover;
       border:2px solid var(--ink);
       image-rendering: pixelated;
       box-shadow: 6px 6px 0 rgba(19,32,22,.18);
       background:#fff;
     }
+
     .name{
       display:flex;
       flex-direction:column;
-      gap:4px;
+      gap:6px;
       line-height:1.05;
     }
+
+    /* bigger pixel name */
     .name strong{
-      font-size:18px;
-      letter-spacing:.3px;
+      font-family:"Press Start 2P", monospace;
+      font-size:22px;
+      line-height:1.25;
+      letter-spacing:1px;
     }
     .name span{
       font-size:12px;
       color:var(--muted);
+      font-weight:800;
     }
 
     /* Language switch */
@@ -134,18 +141,16 @@
       font-size:12px;
       cursor:pointer;
       transition:.15s ease;
-      font-weight:700;
+      font-weight:800;
     }
-    .seg button:hover{
-      background:rgba(255,255,255,.75);
-    }
+    .seg button:hover{ background:rgba(255,255,255,.75); }
     .seg button.active{
       background:#fff;
       border-color:var(--ink);
       color:var(--ink);
     }
 
-    /* Grid: 左侧信息 | 右侧视频 */
+    /* ===== Layout ===== */
     .grid{
       display:grid;
       grid-template-columns: 1.05fr .95fr;
@@ -157,8 +162,9 @@
       .brand{ min-width:unset; }
     }
 
-    /* Card */
+    /* ===== Card base ===== */
     .card{
+      position:relative;
       border:2px solid var(--ink);
       background:var(--card);
       border-radius:var(--radius);
@@ -170,29 +176,85 @@
       transform: translateY(-2px);
       box-shadow: 10px 10px 0 rgba(19,32,22,.16);
     }
+
+    /* Small enhancement #1: pixel rivets at corners */
+    .card::after{
+      content:"";
+      position:absolute;
+      width:8px;height:8px;
+      background:rgba(19,32,22,.55);
+      border-radius:2px;
+      top:10px; left:10px;
+      box-shadow:
+        calc(100% - 28px) 0 0 rgba(19,32,22,.55),
+        0 calc(100% - 28px) 0 rgba(19,32,22,.55),
+        calc(100% - 28px) calc(100% - 28px) 0 rgba(19,32,22,.55);
+      opacity:.45;
+      pointer-events:none;
+    }
+
+    /* ===== Header UI stronger ===== */
     .cardHead{
+      position:relative;
+      background: rgba(255,255,255,.70);
+      border-bottom:2px dashed rgba(19,32,22,.26);
       padding:14px 16px 12px;
-      border-bottom:2px dashed rgba(19,32,22,.22);
       display:flex;
       align-items:flex-end;
       justify-content:space-between;
       gap:12px;
     }
+    /* left pixel accent bar */
+    .cardHead::before{
+      content:"";
+      position:absolute;
+      left:12px;
+      top:12px;
+      width:10px;
+      height:calc(100% - 24px);
+      border:2px solid rgba(19,32,22,.30);
+      border-radius:3px;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255,138,42,.95) 0 10px,
+          rgba(51,196,106,.95) 10px 20px
+        );
+    }
+
+    .cardHead > div{ padding-left: 18px; }
+
+    /* Small enhancement #2: title icon */
+    .titleLine{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .ticon{
+      width:16px;height:16px;
+      border-radius:3px;
+      border:2px solid rgba(19,32,22,.35);
+      background:
+        linear-gradient(135deg, rgba(255,138,42,.95), rgba(51,196,106,.95));
+      box-shadow: 2px 2px 0 rgba(19,32,22,.10);
+      flex:0 0 auto;
+    }
+
     .title{
       font-family:"Press Start 2P", monospace;
-      font-size:12px;
-      letter-spacing:.8px;
+      font-size:13px;
+      letter-spacing:1px;
       line-height:1.25;
     }
     .sub{
       margin-top:6px;
       font-size:12px;
-      color:var(--muted);
+      color:rgba(19,32,22,.70);
+      font-weight:800;
       line-height:1.2;
-      font-weight:700;
     }
-    .cardBody{ padding:14px 16px 16px; }
 
+    .cardBody{ padding:14px 16px 16px; }
     .p{
       margin:0;
       color:rgba(19,32,22,.78);
@@ -201,25 +263,21 @@
       font-weight:600;
     }
 
-    /* Chips */
-    .links{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:12px;
-    }
+    /* Chips (open/email) */
     .chip{
       display:inline-flex;
       align-items:center;
       gap:8px;
-      padding:10px 12px;
+      padding:9px 12px;
       border-radius:999px;
       border:2px solid var(--ink);
       background:#fff;
-      font-size:12px;
-      font-weight:800;
       box-shadow: 4px 4px 0 rgba(19,32,22,.12);
       transition:.15s ease;
+      font-family:"Press Start 2P", monospace;
+      font-size:11px;
+      cursor:pointer;
+      white-space:nowrap;
     }
     .chip:hover{ transform: translateY(-1px); }
     .dot{
@@ -233,7 +291,7 @@
     .videoWrap{
       position:relative;
       width:100%;
-      aspect-ratio: 9 / 16; /* Shorts 更贴近比例 */
+      aspect-ratio: 9 / 16;
       border-radius:8px;
       overflow:hidden;
       border:2px solid rgba(19,32,22,.25);
@@ -245,7 +303,7 @@
       border:0;
     }
 
-    /* List rows */
+    /* Project list rows */
     .list{ display:flex; flex-direction:column; gap:10px; margin-top:10px; }
     .row{
       display:flex;
@@ -295,16 +353,134 @@
       font-weight:700;
     }
 
-    /* Footer */
     .footerNote{
       font-size:12px;
       color:rgba(19,32,22,.62);
       margin-top:10px;
-      font-weight:700;
+      font-weight:800;
     }
     .emailLink{
       text-decoration:underline;
       text-underline-offset:3px;
+      font-weight:900;
+    }
+
+    /* ===== NewYear card (pixel 财神) ===== */
+    .nyLink{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      padding:12px;
+      border:2px solid rgba(19,32,22,.18);
+      border-radius:10px;
+      background: rgba(255,255,255,.65);
+      box-shadow: 4px 4px 0 rgba(19,32,22,.10);
+      transition:.15s ease;
+    }
+    .nyLink:hover{ transform: translateY(-1px); box-shadow: 6px 6px 0 rgba(19,32,22,.12); }
+
+    .nyText{ display:flex; flex-direction:column; gap:4px; }
+    .nyMain{
+      font-family:"Press Start 2P", monospace;
+      font-size:14px;
+      letter-spacing:1px;
+    }
+    .nySubText{
+      font-size:12px;
+      font-weight:900;
+      color: rgba(19,32,22,.68);
+    }
+
+    .nySprite{
+      --px: 6px;
+      width: calc(var(--px) * 12);
+      height: calc(var(--px) * 12);
+      border:2px solid rgba(19,32,22,.28);
+      border-radius:8px;
+      background: rgba(255,255,255,.70);
+      position:relative;
+      overflow:hidden;
+      box-shadow: 3px 3px 0 rgba(19,32,22,.10);
+      image-rendering: pixelated;
+      animation: nyBob 1.6s ease-in-out infinite;
+      flex:0 0 auto;
+    }
+
+    .nySprite::before{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:50%;
+      width: var(--px);
+      height: var(--px);
+      transform: translate(-50%,-50%);
+      background: transparent;
+      box-shadow:
+      /* hat */
+      calc(-3*var(--px)) calc(-5*var(--px)) 0 0 rgba(255,138,42,.95),
+      calc(-2*var(--px)) calc(-5*var(--px)) 0 0 rgba(255,138,42,.95),
+      calc(-1*var(--px)) calc(-5*var(--px)) 0 0 rgba(255,138,42,.95),
+      calc( 0*var(--px)) calc(-5*var(--px)) 0 0 rgba(255,138,42,.95),
+      calc( 1*var(--px)) calc(-5*var(--px)) 0 0 rgba(255,138,42,.95),
+      calc( 2*var(--px)) calc(-5*var(--px)) 0 0 rgba(255,138,42,.95),
+      calc( 3*var(--px)) calc(-5*var(--px)) 0 0 rgba(255,138,42,.95),
+
+      calc(-2*var(--px)) calc(-4*var(--px)) 0 0 rgba(255,138,42,.95),
+      calc(-1*var(--px)) calc(-4*var(--px)) 0 0 rgba(255,255,255,.85),
+      calc( 0*var(--px)) calc(-4*var(--px)) 0 0 rgba(255,255,255,.85),
+      calc( 1*var(--px)) calc(-4*var(--px)) 0 0 rgba(255,255,255,.85),
+      calc( 2*var(--px)) calc(-4*var(--px)) 0 0 rgba(255,138,42,.95),
+
+      /* face */
+      calc(-2*var(--px)) calc(-2*var(--px)) 0 0 rgba(255,224,190,.95),
+      calc(-1*var(--px)) calc(-2*var(--px)) 0 0 rgba(255,224,190,.95),
+      calc( 0*var(--px)) calc(-2*var(--px)) 0 0 rgba(255,224,190,.95),
+      calc( 1*var(--px)) calc(-2*var(--px)) 0 0 rgba(255,224,190,.95),
+      calc( 2*var(--px)) calc(-2*var(--px)) 0 0 rgba(255,224,190,.95),
+
+      /* eyes */
+      calc(-1*var(--px)) calc(-1*var(--px)) 0 0 rgba(19,32,22,.85),
+      calc( 1*var(--px)) calc(-1*var(--px)) 0 0 rgba(19,32,22,.85),
+
+      /* beard */
+      calc(-2*var(--px)) calc( 0*var(--px)) 0 0 rgba(51,196,106,.95),
+      calc(-1*var(--px)) calc( 0*var(--px)) 0 0 rgba(51,196,106,.95),
+      calc( 0*var(--px)) calc( 0*var(--px)) 0 0 rgba(51,196,106,.95),
+      calc( 1*var(--px)) calc( 0*var(--px)) 0 0 rgba(51,196,106,.95),
+      calc( 2*var(--px)) calc( 0*var(--px)) 0 0 rgba(51,196,106,.95),
+
+      /* body */
+      calc(-2*var(--px)) calc( 2*var(--px)) 0 0 rgba(255,138,42,.92),
+      calc(-1*var(--px)) calc( 2*var(--px)) 0 0 rgba(255,138,42,.92),
+      calc( 0*var(--px)) calc( 2*var(--px)) 0 0 rgba(255,138,42,.92),
+      calc( 1*var(--px)) calc( 2*var(--px)) 0 0 rgba(255,138,42,.92),
+      calc( 2*var(--px)) calc( 2*var(--px)) 0 0 rgba(255,138,42,.92),
+
+      calc(-1*var(--px)) calc( 3*var(--px)) 0 0 rgba(51,196,106,.92),
+      calc( 0*var(--px)) calc( 3*var(--px)) 0 0 rgba(255,255,255,.85),
+      calc( 1*var(--px)) calc( 3*var(--px)) 0 0 rgba(51,196,106,.92);
+    }
+
+    .nySprite::after{
+      content:"";
+      position:absolute;
+      inset:-20%;
+      background: linear-gradient(90deg, transparent 0 40%, rgba(255,255,255,.65) 50%, transparent 60% 100%);
+      transform: translateX(-60%) rotate(10deg);
+      animation: nyShine 2.4s ease-in-out infinite;
+      mix-blend-mode: screen;
+      opacity:.65;
+    }
+
+    @keyframes nyBob{
+      0%,100%{ transform: translateY(0); }
+      50%{ transform: translateY(-3px); }
+    }
+    @keyframes nyShine{
+      0%{ transform: translateX(-70%) rotate(10deg); opacity:.0; }
+      15%{ opacity:.55; }
+      35%{ transform: translateX(70%) rotate(10deg); opacity:.0; }
+      100%{ opacity:0; }
     }
   </style>
 </head>
@@ -313,7 +489,6 @@
   <div class="wrap">
     <div class="top">
       <div class="brand">
-        <!-- 头像文件：放在仓库根目录，命名 avatar.jpg（或改这里路径） -->
         <img class="avatar" src="./avatar.jpg" alt="avatar">
         <div class="name">
           <strong data-i18n="name">JIANG CHENYING（蒋晨莹）</strong>
@@ -332,15 +507,20 @@
     </div>
 
     <div class="grid">
-      <!-- 左侧：自我介绍 + 项目经历 -->
+      <!-- LEFT: About + Projects + NewYear -->
       <section style="display:flex; flex-direction:column; gap:14px;">
+        <!-- About -->
         <section class="card">
           <div class="cardHead">
             <div>
-              <div class="title" data-i18n="aboutTitle">自我介绍</div>
+              <div class="titleLine">
+                <span class="ticon" aria-hidden="true"></span>
+                <div class="title" data-i18n="aboutTitle">自我介绍</div>
+              </div>
               <div class="sub" data-i18n="aboutSub">跨媒体内容 / 游戏企划 / 叙事与体验</div>
             </div>
           </div>
+
           <div class="cardBody">
             <p class="p" data-i18n="aboutText">
               我关注游戏、影像与互动叙事的结合，擅长把概念变成可体验的作品原型。
@@ -353,60 +533,85 @@
               <li><span class="badge" style="background:var(--green)"></span><p data-i18n="exp4">数字好莱坞大学大学院 / 修士在读 · 东京</p></li>
             </ul>
 
-            <div class="links">
-              <a class="chip" href="https://github.com/anine998" target="_blank" rel="noopener">
-                <span class="dot"></span>GitHub
-              </a>
-              <a class="chip" href="https://anine998.github.io/998.github.io/newyear2026/" target="_blank" rel="noopener">
-                <span class="dot"></span><span data-i18n="newyear">年贺状</span>
-              </a>
-              <a class="chip" href="#projects">
-                <span class="dot"></span><span data-i18n="projects">项目经历</span>
-              </a>
-            </div>
+            <!-- ✅ 已按你要求：删除这里的 GitHub/年贺状/项目经历按钮 -->
           </div>
         </section>
 
+        <!-- Projects -->
         <section id="projects" class="card">
           <div class="cardHead">
             <div>
-              <div class="title" data-i18n="projTitle">项目经历</div>
+              <div class="titleLine">
+                <span class="ticon" aria-hidden="true"></span>
+                <div class="title" data-i18n="projTitle">项目经历</div>
+              </div>
               <div class="sub" data-i18n="projSub">可点击跳转 / 作品集入口</div>
             </div>
           </div>
+
           <div class="cardBody">
             <div class="list">
               <a class="row" href="https://mhxzx.wanmei.com" target="_blank" rel="noopener">
                 <b data-i18n="p1">梦幻新诛仙</b><span data-i18n="roleUnified">游戏 / 企划&发行&运营</span>
               </a>
               <a class="row" href="https://sm.games.wanmei.com/hot/20200628/baidukey/index.html" target="_blank" rel="noopener">
-                <b data-i18n="p2">新神魔大陆</b><span data-i18n="roleUnified">游戏 / 企划&发行&运营</span>
+                <b data-i18n="p2">新神魔大陆</b><span data-i18n="roleUnified">游戏 / 企划&发行</span>
               </a>
               <a class="row" href="https://zxsj.wanmei.com" target="_blank" rel="noopener">
-                <b data-i18n="p3">诛仙世界</b><span data-i18n="roleUnified">游戏 / 企划&发行&运营</span>
+                <b data-i18n="p3">诛仙世界</b><span data-i18n="roleUnified">游戏 / 企划&发行</span>
               </a>
             </div>
             <p class="footerNote" data-i18n="projHint">
-              右侧说明统一了：不再区分手游/端游，只保留你想强调的核心职能。
+            
             </p>
+          </div>
+        </section>
+
+        <!-- New Year 2026 card (NEW) -->
+        <section class="card" id="newyear">
+          <div class="cardHead">
+            <div>
+              <div class="titleLine">
+                <span class="ticon" aria-hidden="true"></span>
+                <div class="title" data-i18n="nyTitle">2026 年贺状</div>
+              </div>
+              <div class="sub" data-i18n="nySub">点击进入 / Fortune + 好运BGM</div>
+            </div>
+            <a class="chip" href="https://anine998.github.io/998.github.io/newyear2026/" target="_blank" rel="noopener">
+              <span class="dot"></span><span data-i18n="open">打开</span>
+            </a>
+          </div>
+
+          <div class="cardBody">
+            <a class="nyLink" href="https://anine998.github.io/998.github.io/newyear2026/" target="_blank" rel="noopener">
+              <div class="nySprite" aria-hidden="true"></div>
+              <div class="nyText">
+                <div class="nyMain" data-i18n="nyMain">2026 年贺状</div>
+                <div class="nySubText" data-i18n="nyDesc">像素占卜 · 好运之歌 · 点击开运</div>
+              </div>
+            </a>
           </div>
         </section>
       </section>
 
-      <!-- 右侧：VTuber 视频 -->
+      <!-- RIGHT: VTuber -->
       <section class="card">
         <div class="cardHead">
           <div>
-            <div class="title" data-i18n="vtTitle">VTuber 设计</div>
+            <div class="titleLine">
+              <span class="ticon" aria-hidden="true"></span>
+              <div class="title" data-i18n="vtTitle">VTuber 设计</div>
+            </div>
             <div class="sub" data-i18n="vtSub">角色设定 / 短视频 / 形象实验</div>
           </div>
+
           <a class="chip" href="https://youtube.com/shorts/9y1Tc6-LKw0?si=4pTU_1cQ-hs5-oY_" target="_blank" rel="noopener">
             <span class="dot"></span><span data-i18n="open">打开</span>
           </a>
         </div>
+
         <div class="cardBody">
           <div class="videoWrap" aria-label="vtuber video">
-            <!-- Shorts embed: use /embed/VIDEO_ID -->
             <iframe
               src="https://www.youtube.com/embed/9y1Tc6-LKw0?rel=0"
               title="VTuber video"
@@ -414,18 +619,21 @@
               allowfullscreen></iframe>
           </div>
           <p class="p" style="margin-top:12px" data-i18n="vtDesc">
-            这里展示你的 VTuber Shorts。现在视频在页面右侧，更像作品集陈列。
+            
           </p>
         </div>
       </section>
     </div>
 
-    <!-- 底部：联系方式 -->
+    <!-- Contact (bottom full width) -->
     <section class="card" style="margin-top:14px;">
       <div class="cardHead">
         <div>
-          <div class="title" data-i18n="contactTitle">联系方式</div>
-          <div class="sub" data-i18n="contactSub">我联络超级快，快来找我</div>
+          <div class="titleLine">
+            <span class="ticon" aria-hidden="true"></span>
+            <div class="title" data-i18n="contactTitle">联系方式</div>
+          </div>
+          <div class="sub" data-i18n="contactSub">回复超级快，快来找我</div>
         </div>
         <a class="chip" href="mailto:aaaaanine@gmai.com">
           <span class="dot"></span><span data-i18n="emailBtn">发邮件</span>
@@ -434,7 +642,7 @@
       <div class="cardBody">
         <div class="row" style="align-items:center;">
           <b data-i18n="emailLabel">邮箱</b>
-          <a class="emailLink" href="mailto:aaaaanine@gmai.com">aaaaanine@gmai.com</a>
+          <a class="emailLink" href="mailto:aaaaanine@gmail.com">aaaaanine@gmail.com</a>
         </div>
         <p class="footerNote" data-i18n="contactHint">想合作 / 想聊天 / 想约项目都欢迎：我回复很快。</p>
       </div>
@@ -449,10 +657,6 @@
         tagline: "地球在线的玩家 / Player of Earth Online",
         open: "打开",
 
-        vtTitle: "VTuber 设计",
-        vtSub: "角色设定 / 短视频 / 形象实验",
-        vtDesc: "这里展示你的 VTuber Shorts。现在视频在页面右侧，更像作品集陈列。",
-
         aboutTitle: "自我介绍",
         aboutSub: "跨媒体内容 / 游戏企划 / 叙事与体验",
         aboutText: "我关注游戏、影像与互动叙事的结合，擅长把概念变成可体验的作品原型。",
@@ -461,16 +665,22 @@
         exp3: "游戏企划/发行/运营 · Perfect World（完美世界）· 北京",
         exp4: "数字好莱坞大学大学院 / 修士在读 · 东京",
 
-        newyear: "年贺状",
-        projects: "项目经历",
-
         projTitle: "项目经历",
         projSub: "可点击跳转 / 作品集入口",
         p1: "梦幻新诛仙",
         p2: "新神魔大陆",
         p3: "诛仙世界",
         roleUnified: "游戏 / 企划&发行&运营",
-        projHint: "右侧说明统一了：不再区分手游/端游，只保留你想强调的核心职能。",
+      
+
+        nyTitle: "2026 年贺状",
+        nySub: "点击进入 / Fortune + 好运BGM",
+        nyMain: "2026 年贺状",
+        nyDesc: "像素占卜 · 好运之歌 · 点击开运",
+
+        vtTitle: "VTuber 设计",
+        vtSub: "角色设定 / 短视频 / 形象实验",
+       
 
         contactTitle: "联系方式",
         contactSub: "我联络超级快，快来找我",
@@ -485,28 +695,30 @@
         tagline: "地球オンラインのプレイヤー / Player of Earth Online",
         open: "開く",
 
-        vtTitle: "VTuberデザイン",
-        vtSub: "キャラ設定 / ショート動画 / ビジュアル実験",
-        vtDesc: "VTuberのShortsを右側に展示。ポートフォリオっぽく見せます。",
-
         aboutTitle: "自己紹介",
         aboutSub: "クロスメディア / ゲーム企画 / 物語と体験",
         aboutText: "ゲーム・映像・インタラクティブな物語の接続に関心があり、アイデアを体験できるプロトタイプへ落とし込みます。",
         exp1: "広告企画 · 上海",
         exp2: "映画の企画/PR/脚本 · 韓寒監督スタジオ · 北京",
-        exp3: "ゲーム企画/パブリッシング/運用 · Perfect World（完美世界）· 北京",
-        exp4: "デジタルハリウッド大学大学院 / 修士課程在学 · 東京",
-
-        newyear: "年賀状",
-        projects: "プロジェクト",
+        exp3: "ゲーム企画/プロモーション/運営 · Perfect World（完美世界）· 北京",
+        exp4: "デジタルハリウッド大学大学院 / 修士在学 · 東京",
 
         projTitle: "プロジェクト",
         projSub: "クリックで移動 / 入口リンク",
         p1: "夢幻新誅仙",
         p2: "新神魔大陸",
         p3: "誅仙世界",
-        roleUnified: "ゲーム / 企画&パブ&運用",
-        projHint: "表記は統一：プラットフォームよりも、あなたのコア職能を前面に出します。",
+        roleUnified: "ゲーム / 企画&プロモーション&運営",
+        
+
+        nyTitle: "2026 年賀状",
+        nySub: "クリックで移動 / Fortune + BGM",
+        nyMain: "2026 年賀状",
+        nyDesc: "ピクセル占い · 幸運BGM · クリックで開運",
+
+        vtTitle: "VTuberデザイン",
+        vtSub: "キャラ設定 / ショート動画 / ビジュアル実験",
+        
 
         contactTitle: "連絡先",
         contactSub: "返信めちゃ早いので、気軽に連絡してね",
@@ -517,13 +729,9 @@
 
       en: {
         langLabel: "LANG",
-        name: "JIANG CHENYING (Nine)",
+        name: "JIANG CHENYING ",
         tagline: "Player of Earth Online",
         open: "Open",
-
-        vtTitle: "VTuber Design",
-        vtSub: "Character / Shorts / Visual tests",
-        vtDesc: "VTuber Shorts on the right—clean portfolio style.",
 
         aboutTitle: "About",
         aboutSub: "Cross-media / Game planning / Narrative & experience",
@@ -533,16 +741,22 @@
         exp3: "Game Planning / Publishing / Operations · Perfect World · Beijing",
         exp4: "DHGS (Master’s) · Tokyo",
 
-        newyear: "New Year Card",
-        projects: "Projects",
-
         projTitle: "Projects",
         projSub: "Clickable entries / portfolio links",
         p1: "MHXZX",
         p2: "SM Continent",
         p3: "ZX World",
         roleUnified: "Game / Planning & Publishing & Ops",
-        projHint: "Unified role label—highlighting your core capability instead of platform details.",
+        
+
+        nyTitle: "New Year 2026",
+        nySub: "Click to open / Fortune + BGM",
+        nyMain: "New Year 2026",
+        nyDesc: "Pixel fortune · Lucky song · Click to boost luck",
+
+        vtTitle: "VTuber Design",
+        vtSub: "Character / Shorts / Visual tests",
+       
 
         contactTitle: "Contact",
         contactSub: "I reply super fast—hit me up!",
