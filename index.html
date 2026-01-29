@@ -5,39 +5,67 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Portfolio | Nine</title>
 
-  <!-- Fonts (可按需删) -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;800&family=Noto+Sans+JP:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+SC:wght@400;600;800&family=Noto+Sans+JP:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#0b0f14;
-      --panel:rgba(255,255,255,.06);
-      --panel2:rgba(255,255,255,.10);
-      --stroke:rgba(255,255,255,.12);
-      --text:rgba(255,255,255,.88);
-      --muted:rgba(255,255,255,.62);
-      --shadow: 0 18px 50px rgba(0,0,0,.45);
-      --radius:18px;
+      /* Pixel theme */
+      --bg1:#fff4db;   /* light orange */
+      --bg2:#e9fff1;   /* light green */
+      --ink:#132016;
+      --muted:rgba(19,32,22,.70);
+
+      --card:#ffffffcc;
+      --stroke:rgba(19,32,22,.20);
+      --stroke2:rgba(19,32,22,.32);
+
+      --orange:#ff8a2a;
+      --green:#33c46a;
+
+      --shadow: 0 14px 40px rgba(0,0,0,.14);
+      --radius:10px; /* boxy */
     }
-    *{box-sizing:border-box}
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
-      font-family: "Noto Sans SC","Noto Sans JP",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      font-family:"Noto Sans SC","Noto Sans JP",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--ink);
+
+      /* fresh orange+green background with pixel-ish grid */
       background:
-        radial-gradient(1200px 800px at 10% 10%, rgba(129,230,217,.12), transparent 55%),
-        radial-gradient(900px 700px at 90% 20%, rgba(99,102,241,.14), transparent 60%),
-        radial-gradient(900px 700px at 30% 90%, rgba(244,63,94,.10), transparent 55%),
-        var(--bg);
-      color:var(--text);
-      letter-spacing:.2px;
+        radial-gradient(900px 600px at 12% 15%, rgba(255,138,42,.25), transparent 60%),
+        radial-gradient(900px 650px at 88% 22%, rgba(51,196,106,.22), transparent 60%),
+        radial-gradient(700px 600px at 40% 85%, rgba(255,138,42,.16), transparent 60%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      position:relative;
+      overflow-x:hidden;
     }
-    a{color:inherit; text-decoration:none}
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(19,32,22,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(19,32,22,.06) 1px, transparent 1px);
+      background-size: 22px 22px;
+      opacity:.35;
+      mix-blend-mode:multiply;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+
     .wrap{
-      max-width:1100px;
+      max-width:1120px;
       margin:0 auto;
-      padding:28px 18px 40px;
+      padding:26px 18px 44px;
+      position:relative;
+      z-index:1;
     }
 
     /* Top bar */
@@ -46,7 +74,7 @@
       align-items:center;
       justify-content:space-between;
       gap:16px;
-      margin-bottom:18px;
+      margin-bottom:14px;
     }
     .brand{
       display:flex;
@@ -55,49 +83,69 @@
       min-width:260px;
     }
     .avatar{
-      width:56px;height:56px;border-radius:16px;
+      width:56px;height:56px;
+      border-radius:12px;
       object-fit:cover;
-      border:1px solid var(--stroke);
-      box-shadow: var(--shadow);
-      background:rgba(255,255,255,.08);
+      border:2px solid var(--ink);
+      image-rendering: pixelated;
+      box-shadow: 6px 6px 0 rgba(19,32,22,.18);
+      background:#fff;
     }
     .name{
-      display:flex; flex-direction:column; gap:2px;
+      display:flex;
+      flex-direction:column;
+      gap:4px;
       line-height:1.05;
     }
-    .name strong{font-size:18px; letter-spacing:.4px}
-    .name span{font-size:12px; color:var(--muted)}
+    .name strong{
+      font-size:18px;
+      letter-spacing:.3px;
+    }
+    .name span{
+      font-size:12px;
+      color:var(--muted);
+    }
 
+    /* Language switch */
     .lang{
-      display:flex; align-items:center; gap:10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
       padding:10px 12px;
-      border:1px solid var(--stroke);
-      background:rgba(255,255,255,.04);
+      border:2px solid var(--ink);
+      background:rgba(255,255,255,.55);
       border-radius:999px;
+      box-shadow: 6px 6px 0 rgba(19,32,22,.14);
       backdrop-filter: blur(10px);
     }
-    .lang .label{font-size:12px; color:var(--muted)}
-    .seg{
-      display:flex; gap:6px;
+    .lang .label{
+      font-family:"Press Start 2P", monospace;
+      font-size:10px;
+      letter-spacing:.6px;
+      color:rgba(19,32,22,.72);
     }
+    .seg{ display:flex; gap:6px; }
     .seg button{
-      border:1px solid transparent;
+      border:2px solid transparent;
       background:transparent;
-      color:var(--muted);
-      padding:6px 10px;
+      color:rgba(19,32,22,.70);
+      padding:7px 10px;
       border-radius:999px;
       font-size:12px;
       cursor:pointer;
-      transition:.2s ease;
+      transition:.15s ease;
+      font-weight:700;
     }
-    .seg button:hover{background:rgba(255,255,255,.07); color:var(--text)}
+    .seg button:hover{
+      background:rgba(255,255,255,.75);
+    }
     .seg button.active{
-      background:rgba(255,255,255,.12);
-      color:var(--text);
-      border-color:rgba(255,255,255,.14);
+      background:#fff;
+      border-color:var(--ink);
+      color:var(--ink);
     }
 
-    /* Grid */
+    /* Grid: 左侧信息 | 右侧视频 */
     .grid{
       display:grid;
       grid-template-columns: 1.05fr .95fr;
@@ -105,47 +153,55 @@
       align-items:start;
     }
     @media (max-width: 900px){
-      .grid{grid-template-columns:1fr}
-      .brand{min-width:unset}
+      .grid{ grid-template-columns:1fr; }
+      .brand{ min-width:unset; }
     }
 
+    /* Card */
     .card{
-      border:1px solid var(--stroke);
-      background:var(--panel);
+      border:2px solid var(--ink);
+      background:var(--card);
       border-radius:var(--radius);
-      box-shadow: var(--shadow);
+      box-shadow: 8px 8px 0 rgba(19,32,22,.12);
       overflow:hidden;
-      backdrop-filter: blur(10px);
-      transition:.25s ease;
+      transition:.18s ease;
     }
     .card:hover{
       transform: translateY(-2px);
-      background:var(--panel2);
-      border-color:rgba(255,255,255,.18);
+      box-shadow: 10px 10px 0 rgba(19,32,22,.16);
     }
     .cardHead{
-      padding:14px 16px 10px;
-      border-bottom:1px solid rgba(255,255,255,.08);
+      padding:14px 16px 12px;
+      border-bottom:2px dashed rgba(19,32,22,.22);
       display:flex;
       align-items:flex-end;
       justify-content:space-between;
       gap:12px;
     }
     .title{
-      font-size:14px;
-      letter-spacing:.6px;
-      font-weight:800;
+      font-family:"Press Start 2P", monospace;
+      font-size:12px;
+      letter-spacing:.8px;
+      line-height:1.25;
     }
     .sub{
+      margin-top:6px;
       font-size:12px;
       color:var(--muted);
       line-height:1.2;
+      font-weight:700;
     }
-    .cardBody{padding:14px 16px 16px}
+    .cardBody{ padding:14px 16px 16px; }
 
-    .p{margin:0; color:var(--muted); font-size:13px; line-height:1.7}
+    .p{
+      margin:0;
+      color:rgba(19,32,22,.78);
+      font-size:13px;
+      line-height:1.75;
+      font-weight:600;
+    }
 
-    /* Links */
+    /* Chips */
     .links{
       display:flex;
       flex-wrap:wrap;
@@ -156,28 +212,32 @@
       display:inline-flex;
       align-items:center;
       gap:8px;
-      padding:9px 12px;
+      padding:10px 12px;
       border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.06);
+      border:2px solid var(--ink);
+      background:#fff;
       font-size:12px;
-      color:var(--text);
-      transition:.2s ease;
+      font-weight:800;
+      box-shadow: 4px 4px 0 rgba(19,32,22,.12);
+      transition:.15s ease;
     }
-    .chip:hover{background:rgba(255,255,255,.10)}
+    .chip:hover{ transform: translateY(-1px); }
     .dot{
-      width:6px;height:6px;border-radius:99px;background:rgba(255,255,255,.55);
+      width:8px;height:8px;
+      border-radius:2px;
+      background:linear-gradient(135deg,var(--orange),var(--green));
+      border:1px solid rgba(19,32,22,.35);
     }
 
     /* Video */
     .videoWrap{
       position:relative;
       width:100%;
-      aspect-ratio: 16 / 9;
-      border-radius:14px;
+      aspect-ratio: 9 / 16; /* Shorts 更贴近比例 */
+      border-radius:8px;
       overflow:hidden;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.35);
+      border:2px solid rgba(19,32,22,.25);
+      background:rgba(19,32,22,.06);
     }
     .videoWrap iframe{
       position:absolute; inset:0;
@@ -185,22 +245,67 @@
       border:0;
     }
 
-    /* Small list */
-    .list{
-      display:flex; flex-direction:column; gap:10px;
-      margin-top:10px;
-    }
+    /* List rows */
+    .list{ display:flex; flex-direction:column; gap:10px; margin-top:10px; }
     .row{
       display:flex;
       justify-content:space-between;
       gap:10px;
-      padding:10px 12px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.04);
-      border-radius:14px;
+      padding:11px 12px;
+      border:2px solid rgba(19,32,22,.20);
+      background:rgba(255,255,255,.65);
+      border-radius:10px;
+      font-weight:800;
     }
-    .row b{font-size:12px}
-    .row span{font-size:12px; color:var(--muted)}
+    .row b{ font-size:12px; }
+    .row span{ font-size:12px; color:rgba(19,32,22,.62); font-weight:900; }
+
+    /* Experience bullets */
+    .exp{
+      margin:10px 0 0;
+      padding:0;
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .exp li{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      padding:10px 12px;
+      border:2px solid rgba(19,32,22,.18);
+      background:rgba(255,255,255,.62);
+      border-radius:10px;
+    }
+    .exp .badge{
+      flex:0 0 auto;
+      width:10px;height:10px;
+      border-radius:2px;
+      margin-top:4px;
+      background:var(--green);
+      border:1px solid rgba(19,32,22,.35);
+      box-shadow:2px 2px 0 rgba(19,32,22,.10);
+    }
+    .exp p{
+      margin:0;
+      font-size:13px;
+      line-height:1.6;
+      color:rgba(19,32,22,.80);
+      font-weight:700;
+    }
+
+    /* Footer */
+    .footerNote{
+      font-size:12px;
+      color:rgba(19,32,22,.62);
+      margin-top:10px;
+      font-weight:700;
+    }
+    .emailLink{
+      text-decoration:underline;
+      text-underline-offset:3px;
+    }
   </style>
 </head>
 
@@ -208,14 +313,14 @@
   <div class="wrap">
     <div class="top">
       <div class="brand">
+        <!-- 头像文件：放在仓库根目录，命名 avatar.jpg（或改这里路径） -->
         <img class="avatar" src="./avatar.jpg" alt="avatar">
         <div class="name">
           <strong data-i18n="name">JIANG CHENYING（蒋晨莹）</strong>
-          <span data-i18n="tagline">地球オンラインのプレイヤー / Player of Earth Online</span>
+          <span data-i18n="tagline">地球在线的玩家 / Player of Earth Online</span>
         </div>
       </div>
 
-      <!-- 右上角语言切换：现在是真的能切 -->
       <div class="lang" role="group" aria-label="language switch">
         <div class="label" data-i18n="langLabel">语言</div>
         <div class="seg">
@@ -227,34 +332,8 @@
     </div>
 
     <div class="grid">
-      <!-- 左列：视频卡（vtuber字样固定在视频上方） -->
-      <section class="card">
-        <div class="cardHead">
-          <div>
-            <div class="title" data-i18n="vtTitle">VTuber 设计</div>
-            <div class="sub" data-i18n="vtSub">角色设定 / 短视频 / 形象实验</div>
-          </div>
-          <a class="chip" href="https://www.youtube.com/" target="_blank" rel="noopener">
-            <span class="dot"></span><span data-i18n="open">打开</span>
-          </a>
-        </div>
-        <div class="cardBody">
-          <div class="videoWrap" aria-label="vtuber video">
-            <!-- TODO：把下面的 VIDEO_ID 换成你的 YouTube 视频ID -->
-            <iframe
-              src="https://www.youtube.com/embed/https://www.youtube.com/shorts/9y1Tc6-LKw0"
-              title="VTuber video"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
-          </div>
-          <p class="p" style="margin-top:12px" data-i18n="vtDesc">
-            这里放你的 vtuber 相关作品展示。标题在上方，不会再跑到左上角。
-          </p>
-        </div>
-      </section>
-
-      <!-- 右列：信息卡 -->
-      <aside style="display:flex; flex-direction:column; gap:14px;">
+      <!-- 左侧：自我介绍 + 项目经历 -->
+      <section style="display:flex; flex-direction:column; gap:14px;">
         <section class="card">
           <div class="cardHead">
             <div>
@@ -266,10 +345,24 @@
             <p class="p" data-i18n="aboutText">
               我关注游戏、影像与互动叙事的结合，擅长把概念变成可体验的作品原型。
             </p>
+
+            <ul class="exp" aria-label="experience list">
+              <li><span class="badge" style="background:var(--orange)"></span><p data-i18n="exp1">广告企划 · 上海</p></li>
+              <li><span class="badge" style="background:var(--green)"></span><p data-i18n="exp2">电影企划/宣传/脚本 · 韩寒导演工作室 · 北京</p></li>
+              <li><span class="badge" style="background:var(--orange)"></span><p data-i18n="exp3">游戏企划/发行/运营 · Perfect World（完美世界）· 北京</p></li>
+              <li><span class="badge" style="background:var(--green)"></span><p data-i18n="exp4">数字好莱坞大学大学院 / 修士在读 · 东京</p></li>
+            </ul>
+
             <div class="links">
-              <a class="chip" href="https://github.com/anine998" target="_blank" rel="noopener"><span class="dot"></span>GitHub</a>
-              <a class="chip" href="https://anine998.github.io/998.github.io/newyear2026/" target="_blank" rel="noopener"><span class="dot"></span><span data-i18n="newyear">年贺状</span></a>
-              <a class="chip" href="#projects"><span class="dot"></span><span data-i18n="projects">项目经历</span></a>
+              <a class="chip" href="https://github.com/anine998" target="_blank" rel="noopener">
+                <span class="dot"></span>GitHub
+              </a>
+              <a class="chip" href="https://anine998.github.io/998.github.io/newyear2026/" target="_blank" rel="noopener">
+                <span class="dot"></span><span data-i18n="newyear">年贺状</span>
+              </a>
+              <a class="chip" href="#projects">
+                <span class="dot"></span><span data-i18n="projects">项目经历</span>
+              </a>
             </div>
           </div>
         </section>
@@ -284,22 +377,68 @@
           <div class="cardBody">
             <div class="list">
               <a class="row" href="https://mhxzx.wanmei.com" target="_blank" rel="noopener">
-                <b data-i18n="p1">梦幻新诛仙</b><span data-i18n="p1r">手游 / 内容企划</span>
+                <b data-i18n="p1">梦幻新诛仙</b><span data-i18n="roleUnified">游戏 / 企划&发行&运营</span>
               </a>
               <a class="row" href="https://sm.games.wanmei.com/hot/20200628/baidukey/index.html" target="_blank" rel="noopener">
-                <b data-i18n="p2">新神魔大陆</b><span data-i18n="p2r">手游 / 发行协作</span>
+                <b data-i18n="p2">新神魔大陆</b><span data-i18n="roleUnified">游戏 / 企划&发行&运营</span>
               </a>
               <a class="row" href="https://zxsj.wanmei.com" target="_blank" rel="noopener">
-                <b data-i18n="p3">诛仙世界</b><span data-i18n="p3r">端游 / 运营支持</span>
+                <b data-i18n="p3">诛仙世界</b><span data-i18n="roleUnified">游戏 / 企划&发行&运营</span>
               </a>
             </div>
-            <p class="p" style="margin-top:12px" data-i18n="projHint">
-              右侧卡片的“标题”全部固定在上方，视觉也统一了（不再像现在那样文字乱飞）。
+            <p class="footerNote" data-i18n="projHint">
+              右侧说明统一了：不再区分手游/端游，只保留你想强调的核心职能。
             </p>
           </div>
         </section>
-      </aside>
+      </section>
+
+      <!-- 右侧：VTuber 视频 -->
+      <section class="card">
+        <div class="cardHead">
+          <div>
+            <div class="title" data-i18n="vtTitle">VTuber 设计</div>
+            <div class="sub" data-i18n="vtSub">角色设定 / 短视频 / 形象实验</div>
+          </div>
+          <a class="chip" href="https://youtube.com/shorts/9y1Tc6-LKw0?si=4pTU_1cQ-hs5-oY_" target="_blank" rel="noopener">
+            <span class="dot"></span><span data-i18n="open">打开</span>
+          </a>
+        </div>
+        <div class="cardBody">
+          <div class="videoWrap" aria-label="vtuber video">
+            <!-- Shorts embed: use /embed/VIDEO_ID -->
+            <iframe
+              src="https://www.youtube.com/embed/9y1Tc6-LKw0?rel=0"
+              title="VTuber video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+          </div>
+          <p class="p" style="margin-top:12px" data-i18n="vtDesc">
+            这里展示你的 VTuber Shorts。现在视频在页面右侧，更像作品集陈列。
+          </p>
+        </div>
+      </section>
     </div>
+
+    <!-- 底部：联系方式 -->
+    <section class="card" style="margin-top:14px;">
+      <div class="cardHead">
+        <div>
+          <div class="title" data-i18n="contactTitle">联系方式</div>
+          <div class="sub" data-i18n="contactSub">我联络超级快，快来找我</div>
+        </div>
+        <a class="chip" href="mailto:aaaaanine@gmai.com">
+          <span class="dot"></span><span data-i18n="emailBtn">发邮件</span>
+        </a>
+      </div>
+      <div class="cardBody">
+        <div class="row" style="align-items:center;">
+          <b data-i18n="emailLabel">邮箱</b>
+          <a class="emailLink" href="mailto:aaaaanine@gmai.com">aaaaanine@gmai.com</a>
+        </div>
+        <p class="footerNote" data-i18n="contactHint">想合作 / 想聊天 / 想约项目都欢迎：我回复很快。</p>
+      </div>
+    </section>
   </div>
 
   <script>
@@ -309,69 +448,107 @@
         name: "JIANG CHENYING（蒋晨莹）",
         tagline: "地球在线的玩家 / Player of Earth Online",
         open: "打开",
+
         vtTitle: "VTuber 设计",
         vtSub: "角色设定 / 短视频 / 形象实验",
-        vtDesc: "这里放你的 vtuber 相关作品展示。标题在上方，不会再跑到左上角。",
+        vtDesc: "这里展示你的 VTuber Shorts。现在视频在页面右侧，更像作品集陈列。",
+
         aboutTitle: "自我介绍",
         aboutSub: "跨媒体内容 / 游戏企划 / 叙事与体验",
         aboutText: "我关注游戏、影像与互动叙事的结合，擅长把概念变成可体验的作品原型。",
+        exp1: "广告企划 · 上海",
+        exp2: "电影企划/宣传/脚本 · 韩寒导演工作室 · 北京",
+        exp3: "游戏企划/发行/运营 · Perfect World（完美世界）· 北京",
+        exp4: "数字好莱坞大学大学院 / 修士在读 · 东京",
+
         newyear: "年贺状",
         projects: "项目经历",
+
         projTitle: "项目经历",
         projSub: "可点击跳转 / 作品集入口",
         p1: "梦幻新诛仙",
-        p1r: "手游 / 内容企划",
         p2: "新神魔大陆",
-        p2r: "手游 / 发行协作",
         p3: "诛仙世界",
-        p3r: "端游 / 运营支持",
-        projHint: "右侧卡片的“标题”全部固定在上方，视觉也统一了（不再像现在那样文字乱飞）。"
+        roleUnified: "游戏 / 企划&发行&运营",
+        projHint: "右侧说明统一了：不再区分手游/端游，只保留你想强调的核心职能。",
+
+        contactTitle: "联系方式",
+        contactSub: "我联络超级快，快来找我",
+        emailBtn: "发邮件",
+        emailLabel: "邮箱",
+        contactHint: "想合作 / 想聊天 / 想约项目都欢迎：我回复很快。"
       },
+
       ja: {
         langLabel: "言語",
         name: "JIANG CHENYING（蒋晨莹）",
         tagline: "地球オンラインのプレイヤー / Player of Earth Online",
         open: "開く",
+
         vtTitle: "VTuberデザイン",
         vtSub: "キャラ設定 / ショート動画 / ビジュアル実験",
-        vtDesc: "VTuber関連の作品をここに掲載。タイトルは動画の上に固定されます。",
+        vtDesc: "VTuberのShortsを右側に展示。ポートフォリオっぽく見せます。",
+
         aboutTitle: "自己紹介",
         aboutSub: "クロスメディア / ゲーム企画 / 物語と体験",
-        aboutText: "ゲーム・映像・インタラクティブ表現の接続に関心があり、アイデアを体験可能なプロトタイプへ落とし込みます。",
+        aboutText: "ゲーム・映像・インタラクティブな物語の接続に関心があり、アイデアを体験できるプロトタイプへ落とし込みます。",
+        exp1: "広告企画 · 上海",
+        exp2: "映画の企画/PR/脚本 · 韓寒監督スタジオ · 北京",
+        exp3: "ゲーム企画/パブリッシング/運用 · Perfect World（完美世界）· 北京",
+        exp4: "デジタルハリウッド大学大学院 / 修士課程在学 · 東京",
+
         newyear: "年賀状",
         projects: "プロジェクト",
+
         projTitle: "プロジェクト",
-        projSub: "リンク集 / ポートフォリオ入口",
+        projSub: "クリックで移動 / 入口リンク",
         p1: "夢幻新誅仙",
-        p1r: "モバイル / 企画",
         p2: "新神魔大陸",
-        p2r: "モバイル / パブリッシング協力",
         p3: "誅仙世界",
-        p3r: "PC / 運用支援",
-        projHint: "各カードのタイトルは常に上部に揃い、見た目の統一感を出します。"
+        roleUnified: "ゲーム / 企画&パブ&運用",
+        projHint: "表記は統一：プラットフォームよりも、あなたのコア職能を前面に出します。",
+
+        contactTitle: "連絡先",
+        contactSub: "返信めちゃ早いので、気軽に連絡してね",
+        emailBtn: "メールする",
+        emailLabel: "メール",
+        contactHint: "相談・コラボ・雑談なんでもOK。返信は早めです。"
       },
+
       en: {
-        langLabel: "Lang",
+        langLabel: "LANG",
         name: "JIANG CHENYING (Nine)",
         tagline: "Player of Earth Online",
         open: "Open",
+
         vtTitle: "VTuber Design",
         vtSub: "Character / Shorts / Visual tests",
-        vtDesc: "Show your VTuber work here. The title is pinned above the video (no more top-left floating).",
+        vtDesc: "VTuber Shorts on the right—clean portfolio style.",
+
         aboutTitle: "About",
         aboutSub: "Cross-media / Game planning / Narrative & experience",
-        aboutText: "I connect games, film, and interactive storytelling, turning ideas into experience-first prototypes.",
+        aboutText: "I connect games, film, and interactive storytelling, turning concepts into experience-first prototypes.",
+        exp1: "Ad Planning · Shanghai",
+        exp2: "Film Planning / PR / Script · Han Han Studio · Beijing",
+        exp3: "Game Planning / Publishing / Operations · Perfect World · Beijing",
+        exp4: "DHGS (Master’s) · Tokyo",
+
         newyear: "New Year Card",
         projects: "Projects",
+
         projTitle: "Projects",
         projSub: "Clickable entries / portfolio links",
         p1: "MHXZX",
-        p1r: "Mobile / Content planning",
         p2: "SM Continent",
-        p2r: "Mobile / Publishing collab",
         p3: "ZX World",
-        p3r: "PC / Ops support",
-        projHint: "All card titles stay at the top with consistent visual hierarchy."
+        roleUnified: "Game / Planning & Publishing & Ops",
+        projHint: "Unified role label—highlighting your core capability instead of platform details.",
+
+        contactTitle: "Contact",
+        contactSub: "I reply super fast—hit me up!",
+        emailBtn: "Email me",
+        emailLabel: "Email",
+        contactHint: "Collab / chat / projects welcome. Fast response."
       }
     };
 
@@ -389,8 +566,6 @@
     }
 
     btns.forEach(b => b.addEventListener("click", () => applyLang(b.dataset.lang)));
-
-    // init
     applyLang(localStorage.getItem("site_lang") || "zh");
   </script>
 </body>
